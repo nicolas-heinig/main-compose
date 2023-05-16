@@ -1,0 +1,64 @@
+version: "3.9"
+services:
+  # docker run -d --name=main-postgres -p 5432:5432 -v postgres-volume:/var/lib/postgresql/data -e POSTGRES_PASSWORD=postgres postgres
+  postgres:
+    image: postgres
+    ports:
+      - '127.0.0.1:5432:5432'
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - postgres-volume:/var/lib/postgresql/data
+
+  # docker run -d --name=main-mysql-5-7 -p 3306:3306 -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -v mysql-5-7-volume:/var/lib/mysql mysql:5.7
+  mysql-5-7:
+    image: mysql:5.7
+    ports:
+      - '127.0.0.1:3306:3306'
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - mysql-5-7-volume:/var/lib/mysql
+
+  # docker run -d --name=main-mysql-8 -p 3306:3306 -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -v mysql-8-volume:/var/lib/mysql mysql
+  mysql-8:
+    image: mysql
+    ports:
+      - '127.0.0.1:3306:3306'
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - mysql-8-volume:/var/lib/mysql
+
+  # docker run --name main-redis -d redis redis-server --save 60 1 --loglevel warning -p 6379:6379 -v redis-volume:/data
+  redis:
+    image: redis
+    ports:
+      - '127.0.0.1:6379:6379'
+    command: redis-server --save 60 1 --loglevel warning
+    volumes:
+      - redis-volume:/data
+
+  mongo:
+    image: mongo
+    ports:
+      - '127.0.0.1:27017:27017'
+    volumes:
+      - mongo-volume:/data/db
+
+volumes:
+  postgres-volume:
+    name: postgres-volume
+    external: true
+  mysql-5-7-volume:
+    name: mysql-5-7-volume
+    external: true
+  mysql-8-volume:
+    name: mysql-8-volume
+    external: true
+  redis-volume:
+    name: redis-volume
+    external: true
+  mongo-volume:
+    name: mongo-volume
+    external: true
