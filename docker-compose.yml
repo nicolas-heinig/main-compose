@@ -53,6 +53,10 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
     ports:
       - 22181:2181
+    volumes:
+      - zookeeper-volume:/var/lib/zookeeper/data
+      - zookeeper-volume:/var/lib/zookeeper/log
+      - zookeeper-volume:/etc/zookeeper/secrets
 
   kafka:
     image: confluentinc/cp-kafka:latest
@@ -60,6 +64,9 @@ services:
       - zookeeper
     ports:
       - 9092:9092
+    volumes:
+      - kafka-volume:/var/lib/kafka/data
+      - kafka-volume:/etc/kafka/secrets
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
@@ -83,4 +90,10 @@ volumes:
     external: true
   mongo-volume:
     name: mongo-volume
+    external: true
+  zookeeper-volume:
+    name: zookeeper-volume
+    external: true
+  kafka-volume:
+    name: kafka-volume
     external: true
