@@ -3,6 +3,7 @@ services:
   # docker run -d --name=main-postgres -p 5432:5432 -v postgres-volume:/var/lib/postgresql/data -e POSTGRES_PASSWORD=postgres postgres
   postgres:
     image: postgres
+    platform: linux/amd64
     ports:
       - '127.0.0.1:5432:5432'
     environment:
@@ -13,6 +14,7 @@ services:
   # docker run -d --name=main-mysql-5-7 -p 3306:3306 -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -v mysql-5-7-volume:/var/lib/mysql mysql:5.7
   mysql-5-7:
     image: mysql:5.7
+    platform: linux/amd64
     ports:
       - '127.0.0.1:3306:3306'
     environment:
@@ -23,6 +25,7 @@ services:
   # docker run -d --name=main-mysql-8 -p 3306:3306 -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -v mysql-8-volume:/var/lib/mysql mysql
   mysql-8:
     image: mysql
+    platform: linux/amd64
     ports:
       - '127.0.0.1:3306:3306'
     environment:
@@ -33,6 +36,7 @@ services:
   # docker run --name main-redis -d redis redis-server --save 60 1 --loglevel warning -p 6379:6379 -v redis-volume:/data
   redis:
     image: redis
+    platform: linux/amd64
     ports:
       - '127.0.0.1:6379:6379'
     command: redis-server --save 60 1 --loglevel warning
@@ -41,6 +45,7 @@ services:
 
   mongo:
     image: mongo
+    platform: linux/amd64
     ports:
       - '127.0.0.1:27017:27017'
     volumes:
@@ -48,6 +53,7 @@ services:
 
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
+    platform: linux/amd64
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
@@ -60,6 +66,7 @@ services:
 
   kafka:
     image: confluentinc/cp-kafka:latest
+    platform: linux/amd64
     depends_on:
       - zookeeper
     ports:
@@ -78,22 +85,15 @@ services:
 volumes:
   postgres-volume:
     name: postgres-volume
-    external: true
   mysql-5-7-volume:
     name: mysql-5-7-volume
-    external: true
   mysql-8-volume:
     name: mysql-8-volume
-    external: true
   redis-volume:
     name: redis-volume
-    external: true
   mongo-volume:
     name: mongo-volume
-    external: true
   zookeeper-volume:
     name: zookeeper-volume
-    external: true
   kafka-volume:
     name: kafka-volume
-    external: true
