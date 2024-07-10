@@ -1,8 +1,7 @@
-version: "3.9"
 services:
   # docker run -d --name=main-postgres -p 5432:5432 -v postgres-volume:/var/lib/postgresql/data -e POSTGRES_PASSWORD=postgres postgres
   postgres:
-    image: postgres
+    image: postgres:14.11
     platform: linux/amd64
     ports:
       - '127.0.0.1:5432:5432'
