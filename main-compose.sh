@@ -1,5 +1,5 @@
 function main-compose() {
-  docker-compose -f ~/projects/main-compose/docker-compose.yml "$@"
+  docker compose -f ~/projects/main-compose/docker-compose.yml "$@"
 }
 
 function switch-mysql() {
